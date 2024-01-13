@@ -1,0 +1,33 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  name: where-for-dinner-availability.my-apps.tap.20240113190107.0.0+build.02e9424
+spec:
+  refName: where-for-dinner-availability.my-apps.tap
+  version: 20240113190107.0.0+build.02e9424
+  releaseNotes: |
+    Release v20240113190107.0.0+build.02e9424 of package where-for-dinner-availability.my-apps.tap
+  template:
+    spec:
+      fetch:
+      - imgpkgBundle:
+          image: dev.registry.tanzu.vmware.com/tanzu-application-platform/ci-pipeline/apps-13-01-2024-13-18-28-457978509/where-for-dinner-availability-my-apps-bundle@sha256:fdda3bc804a24c2fc49195834daccfc8715158b7a24bc7c8d9d4d8e27069402a
+      template:
+      - ytt:
+          paths:
+          - .
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+      deploy:
+      - kapp: {}
+  valuesSchema:
+    openAPIv3:
+      type: object
+      additionalProperties: false
+      properties:
+        workload_name:
+          type: string
+          default: ""
+
